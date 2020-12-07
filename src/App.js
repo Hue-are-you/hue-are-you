@@ -9,7 +9,9 @@ class App extends Component {
     this.state = {
       play: false,
       fadeOut: false,
-      mainText: false 
+      mainText: false,
+      userBrandInput = '',
+      colors: [],
     }
   }
 
@@ -21,8 +23,62 @@ class App extends Component {
     })
   }
 
+  componentDidMount() {
+    axios({
+      url: `https://makeup-api.herokuapp.com/api/v1/products.json`,
+      method: `GET`,
+      responseType: `json`,
+      params: {
+        // brand: {this.userBrandInput} (maybe state or props)
+      }
+    })
+    .then( (res)=> {
+      // console.log(res.data); 
+      // ^this takes forever because it is calling ALL brands... when we have a user-selected brand, it will be quicker!
+      if (res.data.length > 6) {
+        const shortenedArray = res.data.slice(0, 7)
+        const coloursOnly = []
+        shortenedArray.map( (product)=> {
+          coloursOnly.push(product.product_colors[0].hex_value)
+        })
+        this.setState({
+          color: coloursOnly,
+        })
+      } else {
+        // basically same as above
+        console.log(res);
+      }
+      // console.log(this.state.palette)
+    })
+  }
+
+// what to do when user clicks desired colour
+ handleSwatch = (e) => {
+     e.preventDefault();
+    //  go to the art page
+ }
+
+// store user brand input in state
+  handleChange = (e) => {
+    const target = e.target;
+    const value = target.value;
+
+    this.setState({
+        userBrandInput: value
+    })
+   
+  };
+
+//   what to do when user submits search
+  handleClick = (e) => {
+      e.preventDefault();
+    //   go to the swatches, batches
+      
+  }
+
   render() { 
     return (
+      <div>
       <header id="start">
         <div className="banner">
           <video src={video} autoPlay={this.state.play} loop="true"></video>
@@ -120,12 +176,25 @@ class App extends Component {
             </div>
             <form action="" className={`search-box ${this.state.mainText ? 'showSearch' : null}`}>
               <label htmlFor="search" className="sr-only">Search a make-up brand</label>
-              <input id="search" className="search-text" type="text" placeholder="Search" onChange={this.handleInputChange} value={this.state.userInput} />
-              <button className="search-button" value="submit"><img src={paint} alt="paint splash icon"/></button>
+              <input id="search" className="search-text" type="text" placeholder="Search a make-up brand" onChange={this.handleChange}/>
+              <button className="search-button" onClick={this.handleClick}type="submit"><img src={paint} alt="paint splash icon"/></button>
             </form>
           </div>
         </div>
       </header>
+      {/* Render swatches:
+        <div className="swatches">
+            {
+                this.state.colors.map((color, index) => (
+                    <li key=(index)>
+                        <button className="swatch (color)" style={(color)} onClick={this.handleSwatchClick}></button>
+                    </li>
+                )
+            }
+        </div> */}
+        <Swatches />
+        <Artwork />
+    </div>  
     )
   }
 }
