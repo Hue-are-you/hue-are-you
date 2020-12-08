@@ -38,6 +38,46 @@ header {
   flex-direction: column;
 }
 
+h1 {
+  color: #fff;
+  font-size: 9rem;
+  font-family: 'Baskerville', serif;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  opacity: 0;
+}
+
+.showText {
+  animation: share-text 2s 2s ease forwards;
+}
+
+h2 {
+  position: absolute;
+  color: white;
+  text-shadow: 2px 2px 0px #05090a;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: .5s;
+}
+
+li:hover h2 {
+  opacity: 1;
+}
+
+@keyframes share-text {
+  from {
+    opacity: 0;
+  }
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
 form {
   visibility: hidden;
 }
@@ -65,28 +105,6 @@ video {
   width: 100%;
   height: 100%;
   pointer-events: none;
-}
-
-.title-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-}
-
-.showText {
-  animation: share-text 2s 2s ease forwards;
-}
-
-@keyframes share-text {
-  from {
-    opacity: 0;
-  }
-  to {
-    visibility: visible;
-    opacity: 1;
-  }
 }
 
 /* Preload animation */
@@ -274,8 +292,44 @@ video {
   line-height: 80px;
   width: 400px;
   transition: 1s;
-  font-size: 4rem;
+  font-size: 3rem;
   position: relative;
   z-index: 10;
   transition: 1s;
+}
+
+
+section {
+  background-color: #05090a;
+}
+
+.swatch button{
+  width: 150px;
+  min-height: 150px;
+  border-style: none;
+  border-radius: 50%;
+  border: 5px solid #05090a;
+  box-shadow: inset 10px 0px 30px rgba(0, 0, 0, .8);
+  transition: .5s;
+}
+
+li:hover button{
+  border-color: white;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+li {
+  list-style: none;
+  width: calc(100% / 4 - 20px);
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
