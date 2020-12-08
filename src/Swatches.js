@@ -41,7 +41,6 @@ class Swatches extends Component {
         })
       } else {
         // basically same as above
-        console.log(res);
       }
       
       // console.log(this.state.palette)
