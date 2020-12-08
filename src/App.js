@@ -13,6 +13,9 @@ class App extends Component {
       fadeOut: false,
       mainText: false,
       userBrandInput: '',
+      url: '',
+      title: '',
+      artist: '',
       colors: [],
       finalColours: []
     }
@@ -30,6 +33,28 @@ class App extends Component {
   handleSwatch = (e) => {
     e.preventDefault();
     //  go to the art page
+    const chosenColor = e.target.className
+    console.log(chosenColor);
+    axios({
+      url: `https://www.rijksmuseum.nl/api/en/collection`,
+      method: `GET`,
+      responseType: `json`,
+      params: {
+        key: 'wMbWv135',
+        "f.normalized32Colors.hex": '#ff0000',
+        imgOnly: true,
+        // hex: chosenColor
+        // ^ or whatever hex value user chooses
+      }
+    })
+      .then((res) => {
+        console.log(res)
+        this.setState({
+          url: res.data.artObjects[0].webImage.url,
+          title: res.data.artObjects[0].title,
+          artist: res.data.artObjects[0].principalOrFirstMaker
+        })
+      })
   }
 
   // store user brand input in state
@@ -63,7 +88,7 @@ class App extends Component {
             // console.log(colorsOnly);
           })
         }
-        console.log(colorsOnly);
+        // console.log(colorsOnly);
         this.randomColours(colorsOnly)
         this.setState({
           colors: colorsOnly
@@ -80,7 +105,7 @@ class App extends Component {
       const randomIndex = Math.floor(Math.random() * array.length)
       if (array[randomIndex] !== array[i]) {
         this.state.finalColours.push(array[randomIndex]);
-        console.log("SwatchArray", this.state.finalColours)
+        // console.log("SwatchArray", this.state.finalColours)
       }
     }
     // sometimes repeats... how to fix?
@@ -114,11 +139,11 @@ class App extends Component {
                 const styles = {
                   backgroundColor: (color)
                 };
-                console.log(color);
+                // console.log(color);
                 return (
                   <li className="swatch" key={index}>
                     <h2 style={styles}>{color}</h2>
-                    <button style={styles}>
+                    <button style={styles} className={color}onClick={this.handleSwatch}>
                     </button>
                   </li>
                 )
@@ -126,6 +151,10 @@ class App extends Component {
             }
           </ul>
         </section>
+        <div>
+        <p>hi again</p>
+        <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`}/>
+      </div>
       </div>
     )
   }
