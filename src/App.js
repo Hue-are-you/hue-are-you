@@ -142,9 +142,8 @@ class App extends Component {
                 // console.log(color);
                 return (
                   <li className="swatch" key={index}>
-                    <h2 style={styles}>{color}</h2>
-                    <button style={styles} className={color}onClick={this.handleSwatch}>
-                    </button>
+                    <button style={styles} className={color}onClick={this.handleSwatch}></button>
+                    <h2>{color}</h2>
                   </li>
                 )
               })
