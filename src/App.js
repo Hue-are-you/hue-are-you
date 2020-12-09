@@ -167,22 +167,32 @@ class App extends Component {
 
         {/* Render swatches: */}
         <section className="swatches">
-          <ul>
-            {
-              this.state.finalColours.map((color, index) => {
-                const styles = {
-                  backgroundColor: (color)
-                };
-                // console.log(color);
-                return (
-                  <li className="swatch" key={index}>
-                    <button style={styles} className={color}onClick={this.handleSwatch}></button>
-                    <h2>{color}</h2>
-                  </li>
-                )
-              })
-            }
-          </ul>
+          <div className="wrapper information">
+            <ul>
+              {
+                this.state.finalColours.map((color, index) => {
+                  const styles = {
+                    backgroundColor: (color)
+                  };
+                  // console.log(color);
+                  return (
+                    <li className="swatch" key={index}>
+                      <button style={styles} className={color}onClick={this.handleSwatch}></button>
+                      <h2>{color}</h2>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+            <div class="stick">
+              <h3>{this.state.userBrandInput}</h3>
+              <div class="brush"></div>
+              <div class="neck"></div>
+              <div class="bristles">
+                <div class="tip"></div>
+              </div>
+            </div>
+          </div>
         </section>
         <div>
         <p>hi again</p>
