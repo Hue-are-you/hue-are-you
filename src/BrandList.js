@@ -1,6 +1,9 @@
 import { Component } from 'react';
 
 
+
+
+
 class BrandList extends Component {
   
   render() { 
@@ -11,7 +14,7 @@ class BrandList extends Component {
           {
             this.props.brands.map((brand, index) => {
               return (
-                <li key={index} className="brands">{brand}</li>
+                <li key={index} className="brands" ><a href="#swatchSection" onClick={this.props.click}name={brand}>{brand}</a></li>
               )
             })
             

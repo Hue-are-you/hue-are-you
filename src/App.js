@@ -32,7 +32,15 @@ class App extends Component {
     })
   }
 
-
+  handleBrandClick = (e) => {
+    // e.preventDefault();
+    console.log(e);
+    const brand = e.target.name
+    console.log(brand);
+    this.setState({
+      userBrandInput: brand
+        })
+  }
 
   // what to do when user clicks desired colour
   handleSwatch = (e) => {
@@ -96,6 +104,10 @@ class App extends Component {
       anchorClass: "hidden"
     })
   };
+
+  // makeupAxiosCall = () =  {
+    
+  // }
 
   handleClick = (e) => {
     e.preventDefault();
@@ -175,7 +187,7 @@ class App extends Component {
         </header>
 
         {/* Render swatches: */}
-        <section className="swatches">
+        <section className="swatches" id="swatchSection">
           <div className="wrapper information">
             <ul>
               {
@@ -213,7 +225,7 @@ class App extends Component {
 
         <section id="brands">
           <BrandList
-            brands={this.state.brandNames} />
+            brands={this.state.brandNames} click={this.handleBrandClick} />
         </section>
       </div>
     )
