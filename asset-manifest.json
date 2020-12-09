@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/hue-are-you/static/css/main.f4335d69.chunk.css",
+    "main.js": "/hue-are-you/static/js/main.1c61cac1.chunk.js",
+    "main.js.map": "/hue-are-you/static/js/main.1c61cac1.chunk.js.map",
+    "runtime-main.js": "/hue-are-you/static/js/runtime-main.da8a32fb.js",
+    "runtime-main.js.map": "/hue-are-you/static/js/runtime-main.da8a32fb.js.map",
+    "static/js/2.093d1c09.chunk.js": "/hue-are-you/static/js/2.093d1c09.chunk.js",
+    "static/js/2.093d1c09.chunk.js.map": "/hue-are-you/static/js/2.093d1c09.chunk.js.map",
+    "static/js/3.8dfd86d4.chunk.js": "/hue-are-you/static/js/3.8dfd86d4.chunk.js",
+    "static/js/3.8dfd86d4.chunk.js.map": "/hue-are-you/static/js/3.8dfd86d4.chunk.js.map",
+    "index.html": "/hue-are-you/index.html",
+    "static/css/main.f4335d69.chunk.css.map": "/hue-are-you/static/css/main.f4335d69.chunk.css.map",
+    "static/js/2.093d1c09.chunk.js.LICENSE.txt": "/hue-are-you/static/js/2.093d1c09.chunk.js.LICENSE.txt",
+    "static/media/smoke.eb091621.mp4": "/hue-are-you/static/media/smoke.eb091621.mp4"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.da8a32fb.js",
+    "static/js/2.093d1c09.chunk.js",
+    "static/css/main.f4335d69.chunk.css",
+    "static/js/main.1c61cac1.chunk.js"
+  ]
+}
