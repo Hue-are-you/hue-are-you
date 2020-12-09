@@ -19,7 +19,8 @@ class App extends Component {
       artist: '',
       finalColours: [],
       rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35A1F", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93" ],
-      brandNames: ["almay", "alva", "anna sui", "annabelle", "benefit", "boosh", "burt's bees", "butter london", "c'est moi", "cargo cosmetics", "china glaze", "clinique", "coastal classic creation", "colourpop", "covergirl", "dalish", "deciem", "dior", "dr.hauschka", "e.l.f.", "essie", "fenty", "glossier", "green people", "iman", "l'oreal", "lotus cosmetics usa", "maia's mineral galaxy", "marcelle", "marienatie", "maybelline", "milani", "mineral fusion", "misa", "mistura", "moov", "nudus", "nyx", "orly", "pacifica", "penny lane organics", "physicians formula", "piggy paint", "pure anada", "rejuva minerals", "revlon", "sally b's skin yummies", "salon perfect", "sante", "sinful colours", "smashbox", "stila", "suncoat", "w3llpeople", "wet n wild", "zorah", "zorah biocosmetiques"]
+      brandNames: ["almay", "alva", "anna sui", "annabelle", "benefit", "boosh", "burt's bees", "butter london", "c'est moi", "cargo cosmetics", "china glaze", "clinique", "coastal classic creation", "colourpop", "covergirl", "dalish", "deciem", "dior", "dr.hauschka", "e.l.f.", "essie", "fenty", "glossier", "green people", "iman", "l'oreal", "lotus cosmetics usa", "maia's mineral galaxy", "marcelle", "marienatie", "maybelline", "milani", "mineral fusion", "misa", "mistura", "moov", "nudus", "nyx", "orly", "pacifica", "penny lane organics", "physicians formula", "piggy paint", "pure anada", "rejuva minerals", "revlon", "sally b's skin yummies", "salon perfect", "sante", "sinful colours", "smashbox", "stila", "suncoat", "w3llpeople", "wet n wild", "zorah", "zorah biocosmetiques"],
+      anchorClass: "hidden"
     }
   }
 
@@ -39,7 +40,6 @@ class App extends Component {
     //  go to the art page
     const chosenColor = e.target.className
     console.log(chosenColor);
- 
     const nearestColor = require('nearest-color').from(this.state.rijksColors);
     console.log(nearestColor(chosenColor));
       axios({
@@ -92,13 +92,17 @@ class App extends Component {
   // store user brand input in state
   handleChange = (e) => {
     this.setState({
-      userBrandInput: e.target.value
+      userBrandInput: e.target.value,
+      anchorClass: "hidden"
     })
   };
 
   handleClick = (e) => {
     e.preventDefault();
     //   go to the swatches, batches
+    if (this.state.brandNames.indexOf(this.state.userBrandInput) >=0) {
+      console.log("Matches");
+    
     axios({
       url: `https://makeup-api.herokuapp.com/api/v1/products.json`,
       method: `GET`,
@@ -126,6 +130,12 @@ class App extends Component {
           colors: colorsOnly
         })
       })
+    }else{
+      console.log("No Match");
+      this.setState({
+        anchorClass: ""
+      })
+    }
   }
 
   randomColours = (array) => {
@@ -161,6 +171,7 @@ class App extends Component {
               </form>
             </div>
           </div>
+              <a className={this.state.anchorClass} href="#brands">This brand is not supported, click here for supported brands</a>
         </header>
 
         {/* Render swatches: */}
@@ -200,7 +211,7 @@ class App extends Component {
           </div>
         </section>
 
-        <section>
+        <section id="brands">
           <BrandList
             brands={this.state.brandNames} />
         </section>

@@ -81,6 +81,7 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* flex-wrap: wrap; */
 }
 
 video {
@@ -390,4 +391,17 @@ h3 {
 /* Art Picture Section */
 .art {
   background-color: white;
+}
+
+a{
+  z-index: 20;
+  color: #bada55;
+  width: 100%;
+  text-align: center;
+  transform: translateY(-150px);
+}
+
+
+.hidden {
+  display: none;
 }
