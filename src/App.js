@@ -3,6 +3,7 @@ import video from './assets/smoke.mp4';
 import paint from './assets/paint-splash.png';
 import axios from 'axios';
 import LoadingText from './LoadingText.js';
+import BrandList from './BrandList.js';
 
 class App extends Component {
 
@@ -16,9 +17,9 @@ class App extends Component {
       url: '',
       title: '',
       artist: '',
-      colors: [],
       finalColours: [],
-      rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35A1F", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93" ]
+      rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35A1F", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93" ],
+      brandNames: ["almay", "alva", "anna sui", "annabelle", "benefit", "boosh", "burt's bees", "butter london", "c'est moi", "cargo cosmetics", "china glaze", "clinique", "coastal classic creation", "colourpop", "covergirl", "dalish", "deciem", "dior", "dr.hauschka", "e.l.f.", "essie", "fenty", "glossier", "green people", "iman", "l'oreal", "lotus cosmetics usa", "maia's mineral galaxy", "marcelle", "marienatie", "maybelline", "milani", "mineral fusion", "misa", "mistura", "moov", "nudus", "nyx", "orly", "pacifica", "penny lane organics", "physicians formula", "piggy paint", "pure anada", "rejuva minerals", "revlon", "sally b's skin yummies", "salon perfect", "sante", "sinful colours", "smashbox", "stila", "suncoat", "w3llpeople", "wet n wild", "zorah", "zorah biocosmetiques"]
     }
   }
 
@@ -174,8 +175,7 @@ class App extends Component {
                   // console.log(color);
                   return (
                     <li className="swatch" key={index}>
-                      <button style={styles} className={color}onClick={this.handleSwatch}></button>
-                      <h2>{color}</h2>
+                      <button style={styles} className={color} onClick={this.handleSwatch}>{color}</button>
                     </li>
                   )
                 })
@@ -191,10 +191,19 @@ class App extends Component {
             </div>
           </div>
         </section>
-        <div>
-        <p>hi again</p>
-        <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`}/>
-      </div>
+        
+        <section className="art">
+          <div className="wrapper">
+            <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`}/>
+            <p>{this.state.artist}</p>
+            <p>{this.state.title}</p>
+          </div>
+        </section>
+
+        <section>
+          <BrandList
+            brands={this.state.brandNames} />
+        </section>
       </div>
     )
   }

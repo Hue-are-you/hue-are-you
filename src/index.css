@@ -54,20 +54,6 @@ h1 {
   animation: share-text 2s 2s ease forwards;
 }
 
-h2 {
-  position: absolute;
-  color: white;
-  text-shadow: 2px 2px 0px #05090a;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  transition: .5s;
-}
-
-li:hover h2 {
-  opacity: 1;
-}
-
 @keyframes share-text {
   from {
     opacity: 0;
@@ -298,6 +284,11 @@ video {
   transition: 1s;
 }
 
+.error-list {
+  color: #eb7a83;
+  font-size: 2rem;
+}
+
 section {
   background-color: #05090a;
 }
@@ -311,13 +302,17 @@ section {
   min-height: 150px;
   border-style: none;
   border-radius: 50%;
-  border: 5px solid #05090a;
   box-shadow: inset 10px 0px 30px rgba(0, 0, 0, .8);
   transition: .5s;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0);
+  text-shadow: 2px 2px 5px transparent;
 }
 
 li:hover button{
-  border-color: white;
+  border: 5px solid white;
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 2px 2px 5px #05090a;
 }
 
 ul {
@@ -390,4 +385,9 @@ h3 {
   color: black;
   z-index: 10;
   font-size: 3rem;
+}
+
+/* Art Picture Section */
+.art {
+  background-color: white;
 }
