@@ -18,7 +18,7 @@ class App extends Component {
       artist: '',
       colors: [],
       finalColours: [],
-      rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35AIF", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93", " #FFEB00" ]
+      rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35A1F", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93" ]
     }
   }
 
@@ -30,11 +30,6 @@ class App extends Component {
     })
   }
 
-  // normalizeColors = (color) => {
-  //   const nearestColor = require('nearest-color').from(this.state.rijksColors);
-  //   console.log("nearestColor", nearestColor);
-  //   nearestColor(color);
-  // }
 
 
   // what to do when user clicks desired colour
@@ -43,14 +38,16 @@ class App extends Component {
     //  go to the art page
     const chosenColor = e.target.className
     console.log(chosenColor);
-    
-    axios({
+ 
+    const nearestColor = require('nearest-color').from(this.state.rijksColors);
+    console.log(nearestColor(chosenColor));
+      axios({
       url: `https://www.rijksmuseum.nl/api/en/collection`,
       method: `GET`,
       responseType: `json`,
       params: {
         key: 'wMbWv135',
-        'f.normalized32Colors.hex': "#DDA5AA",
+        'f.normalized32Colors.hex': nearestColor(chosenColor),
         imgOnly: true,
         // hex: chosenColor
         // ^ or whatever hex value user chooses
