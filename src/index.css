@@ -284,7 +284,7 @@ video {
 }
 
 .search-button img {
-  scale: 2;
+  transform: scale(2);
   position: relative;
   right: 45px;
   bottom: 5px;
@@ -463,6 +463,7 @@ li {
   border-image-width: 60px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .artCorset {
@@ -489,9 +490,6 @@ li {
   color: #eb7a83;
   font-weight: bold;
 }
-
-/* Need to figure out this one */
-
 
 /* Brandlist styling */
 
