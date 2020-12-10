@@ -17,6 +17,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 html {
   font-size: 62.5%;
   font-family: 'Mulish', sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -456,18 +457,18 @@ li {
 }
 
 .artFrame {
-  width: 700px;
+  width: 600px;
   min-height: 300px;
   margin: 0 auto;
-  border-image: url(assets/frame.png) 88;
-  border-image-width: 60px;
+  border-image: url(assets/frame.png) 88 90;
+  border-image-width: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .artCorset {
-  width: 580px;
+  width: 480px;
   padding: 57px 0;
 }
 
@@ -621,15 +622,19 @@ footer a:hover::before {
     padding-left: 20px;
     line-height: 50px;
     width: 200px;
-    font-size: 3rem;
+    font-size: 1.6rem;
     z-index: 10;
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
   /* Adjust swatches section for smaller viewports */
   h2 {
     font-size: 4rem;
+  }
+
+  h3 {
+    font-size: 1.6rem;
   }
 
   .swatch button{
@@ -655,6 +660,16 @@ footer a:hover::before {
     flex-direction: column;
     align-items: center;
     position: relative;
+  }
+
+  /* Art section styling */
+  .artFrame {
+    width: 80%;
+    position: relative;
+  }
+
+  .artCorset {
+    width: 80%;
   }
 }
 
