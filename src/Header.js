@@ -8,7 +8,9 @@ class Header extends Component {
     return(
       <Fragment>
         <div className="banner">
-          <video src={video} autoPlay={this.props.play} loop="true" playsInline></video>
+          <video autoPlay={this.props.play} loop="true" playsInline>
+            <source src={video} type="video/mp4"/>
+          </video>
           <div className="search">
             <div onClick={this.props.playVideo} className={this.props.fadeOut ? 'hide' : null}>
               <LoadingText />
