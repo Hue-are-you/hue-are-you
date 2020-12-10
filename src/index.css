@@ -44,8 +44,7 @@ h1 {
   font-family: 'Baskerville', serif;
   position: absolute;
   top: 25%;
-  left: 50%;
-  transform: translateX(-50%);
+  padding-left: 10px;
   margin: 0;
   opacity: 0;
 }
@@ -592,6 +591,74 @@ footer a:hover::before {
   background-color: white;
 }
 
+/* Media Queries */
+@media (max-width: 550px) {
+  /* Shrink h1 text and search bar for smaller viewports */
+  h1 {
+    font-size: 5rem;
+    padding-left: 25px;
+  }
+
+  .search-box {
+    height: 50px;
+    border-radius: 50px;
+    padding: 10px;
+    width: 300px;
+    transition: 1s;
+    z-index: 5;
+    opacity: .3;
+  }
+
+  .search-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .search-button img {
+    right: 27px;
+    bottom: 2px;
+  }
+
+  .search-text {
+    padding-left: 20px;
+    line-height: 50px;
+    width: 200px;
+    font-size: 3rem;
+    z-index: 10;
+  }
+}
+
+@media (max-width: 700px) {
+  /* Adjust swatches section for smaller viewports */
+  h2 {
+    font-size: 4rem;
+  }
+
+  .swatch button{
+    width: 150px;
+    min-height: 150px;
+    font-size: 2rem;
+  }
+
+  li:hover button{
+    border: 5px solid white;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 2px 2px 5px #05090a;
+  }
+
+  .swatch ul {
+    justify-content: center;
+  }
+
+  .swatches li {
+    width: calc(100% / 2);
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+}
 
 
 /* Calvin to self -> don't touch this */
