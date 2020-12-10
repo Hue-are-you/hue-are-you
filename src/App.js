@@ -4,6 +4,7 @@ import paint from './assets/paint-splash.png';
 import axios from 'axios';
 import LoadingText from './LoadingText.js';
 import BrandList from './BrandList.js';
+import Footer from './Footer.js';
 
 class App extends Component {
 
@@ -39,7 +40,7 @@ class App extends Component {
     console.log(brand);
     this.setState({
       userBrandInput: brand
-        })
+    })
   }
 
   // what to do when user clicks desired colour
@@ -168,7 +169,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <header id="start">
+        <header id="start" className="start">
           <div className="banner">
             <video src={video} autoPlay={this.state.play} loop="true"></video>
             <div className="search">
@@ -183,12 +184,19 @@ class App extends Component {
               </form>
             </div>
           </div>
-              <a className={this.state.anchorClass} href="#brands">This brand is not supported, click here for supported brands</a>
+          <div>
+            <a className={this.state.anchorClass} href="#brands">This brand is not supported, click here for supported brands</a>
+            <div className="arrow">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
         </header>
 
         {/* Render swatches: */}
         <section className="swatches" id="swatchSection">
           <div className="wrapper information">
+            <h2>Pick a color that speaks to you!</h2>
             <ul>
               {
                 this.state.finalColours.map((color, index) => {
@@ -227,6 +235,10 @@ class App extends Component {
           <BrandList
             brands={this.state.brandNames} click={this.handleBrandClick} />
         </section>
+
+        <footer>
+          <Footer />
+        </footer>
       </div>
     )
   }

@@ -17,7 +17,6 @@ class BrandList extends Component {
                 <li key={index} className="brands" ><a href="#swatchSection" onClick={this.props.click}name={brand}>{brand}</a></li>
               )
             })
-            
           }
         </ul>
       </div>
