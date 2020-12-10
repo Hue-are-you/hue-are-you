@@ -479,9 +479,17 @@ li {
 .art p {
   color: white;
   text-align: center;
+  margin: 20px;
 }
 
+.art:hover h2::before {
+  width: 20%;
+}
 
+.art span {
+  color: #eb7a83;
+  font-weight: bold;
+}
 
 /* Need to figure out this one */
 

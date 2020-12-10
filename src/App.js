@@ -22,7 +22,8 @@ class App extends Component {
       rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35A1F", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93" ],
       brandNames: ["almay", "alva", "anna sui", "annabelle", "benefit", "boosh", "burt's bees", "butter london", "c'est moi", "cargo cosmetics", "china glaze", "clinique", "coastal classic creation", "colourpop", "covergirl", "dalish", "deciem", "dior", "dr.hauschka", "e.l.f.", "essie", "fenty", "glossier", "green people", "iman", "l'oreal", "lotus cosmetics usa", "maia's mineral galaxy", "marcelle", "marienatie", "maybelline", "milani", "mineral fusion", "misa", "mistura", "moov", "nudus", "nyx", "orly", "pacifica", "penny lane organics", "physicians formula", "piggy paint", "pure anada", "rejuva minerals", "revlon", "sally b's skin yummies", "salon perfect", "sante", "sinful colours", "smashbox", "stila", "suncoat", "w3llpeople", "wet n wild", "zorah", "zorah biocosmetiques"],
       anchorClass: "hidden",
-      sectionsClass: "hidden",
+      swatchesClass: "hidden",
+      artClass: "hidden",
       brandsClass: "hidden"
     }
   }
@@ -72,7 +73,7 @@ class App extends Component {
         // console.log("artResults", artResults);
         const artArray = [];
         artResults.map((art, index) => {
-          
+
           artArray.push({
             arrUrl: res.data.artObjects[index].webImage.url,
             arrTitle: res.data.artObjects[index].title,
@@ -80,24 +81,19 @@ class App extends Component {
           })
 
           // console.log("artArray", artArray);
-         
-          
+
+
           const randomIndex = Math.floor(Math.random() * artArray.length)
           const artPiece = artArray[randomIndex]
           this.setState({
-              
+
           url: artPiece.arrUrl,
           title: artPiece.arrTitle,
-          artist: artPiece.arrArtist
+          artist: artPiece.arrArtist,
+          artClass: ""
             })
-          
-        })
 
-        // this.setState({
-        //   url: res.data.artObjects[0].webImage.url,
-        //   title: res.data.artObjects[0].title,
-        //   artist: res.data.artObjects[0].principalOrFirstMaker
-        // })
+        })
       })
   }
 
@@ -159,7 +155,7 @@ class App extends Component {
     if (this.state.brandNames.indexOf(this.state.userBrandInput) >=0) {
       console.log("matches");
       this.setState({
-        sectionsClass: ""
+        swatchesClass: ""
       })
       // Makes Axios call if input matches accepted values
       this.makeupAxiosCall()
@@ -214,12 +210,11 @@ class App extends Component {
                 <span></span>
               </div>
             </a>
-            
           </div>
         </header>
 
         {/* Render swatches: */}
-        <section className={`swatches ${this.state.sectionsClass}`} id="swatchSection">
+        <section className={`swatches ${this.state.swatchesClass}`} id="swatchSection">
           <div className="wrapper information">
             <h2>Pick a color that speaks to you!</h2>
             <ul>
@@ -247,8 +242,8 @@ class App extends Component {
             </div>
           </div>
         </section>
-        
-        <section className={`art ${this.state.sectionsClass}`}>
+
+        <section className={`art ${this.state.artClass}`}>
           <div className="wrapper">
             <h2>You might <em>Rijk</em> this Picture!</h2>
             <div className="artFrame">
@@ -256,8 +251,8 @@ class App extends Component {
                 <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`}/>
               </div>
             </div>
-            <p>{this.state.artist}</p>
-            <p>{this.state.title}</p>
+            <p><span>Artist: </span>{this.state.artist}</p>
+            <p><span>Title: </span>{this.state.title}</p>
           </div>
         </section>
 
