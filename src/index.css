@@ -567,12 +567,14 @@ footer a:hover::before {
 
 
 
-/* Start anchor that is hidden 
-
+/* Start anchor that is hidden  */
+/* Thie following needs to stay below the search bar, where it is visible to the user when an error occurs you may style it as you wish, but please don't hide it under the arrow */
 .start a {
+  
   z-index: 20;
+  transform: translateY(-150px);
+
   width: 100%;
   text-align: center;
-  transform: translateY(-150px);
-  color: #eb7a83;
-} */
+  color: #bada55;
+}
