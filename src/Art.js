@@ -4,7 +4,7 @@ class Art extends Component {
   render() {
     return(
       <div className="wrapper">
-        <h2>You might <em>Rijk</em> this Picture!</h2>
+        <h2>This is the <em>Rijk</em> picture for you!</h2>
         <div className="artFrame">
           <div className="artCorset">
             <img src={this.props.url} alt={`Your makeup, perfectly paired with ${this.props.artist}'s work: '${this.props.title}'`} />

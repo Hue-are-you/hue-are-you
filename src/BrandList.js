@@ -1,14 +1,9 @@
 import { Component } from 'react';
 
-
-
-
-
 class BrandList extends Component {
-  
   render() { 
     return (
-      <div className="wrapper error-list">
+      <div className="wrapper errorList">
         <h2>Available Brands</h2>
         <ul>
           {

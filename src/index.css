@@ -6,7 +6,7 @@ html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: 
 
 *, *:before, *:after {box-sizing: inherit}
 
-.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
+.srOnly { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; white-space: nowrap; clip-path: inset(100%); clip: rect(0 0 0 0); overflow: hidden;}
 
 /* Global Styling */
 * {
@@ -223,7 +223,7 @@ video {
 }
 
 /* Search bar */
-.search-box {
+.searchBox {
   box-sizing: content-box;
   position: relative;
   background-color:white;
@@ -250,25 +250,25 @@ video {
   }
 }
 
-.search-box:hover,
-.search-box:focus,
-.search-box:focus-within {
+.searchBox:hover,
+.searchBox:focus,
+.searchBox:focus-within {
   opacity: 1;
 }
 
-.search-box:hover > .search-button img,
-.search-box:focus > .search-button img,
-.search-box:focus-within > .search-button img {
+.searchBox:hover > .searchButton img,
+.searchBox:focus > .searchButton img,
+.searchBox:focus-within > .searchButton img {
   opacity: 1;
 }
 
-.search-box:hover > .search-text,
-.search-box:focus > .search-text,
-.search-box:focus-within > .search-text {
+.searchBox:hover > .searchText,
+.searchBox:focus > .searchText,
+.searchBox:focus-within > .searchText {
   color: #eb7a83;
 }
 
-.search-button {
+.searchButton {
   text-decoration: none;
   border: none;
   float: right;
@@ -285,7 +285,7 @@ video {
   cursor: pointer;
 }
 
-.search-button img {
+.searchButton img {
   transform: scale(2);
   position: relative;
   right: 45px;
@@ -294,7 +294,7 @@ video {
   transition: 1s;
 }
 
-.search-text {
+.searchText {
   border: none;
   background: none;
   outline: none;
@@ -495,22 +495,22 @@ li {
 
 /* Brandlist styling */
 
-.error-list:hover h2::before {
+.errorList:hover h2::before {
   width: 20%;
 }
 
-.error-list ul {
+.errorList ul {
   justify-content: flex-start;
 }
 
-.error-list li {
+.errorList li {
   list-style: none;
   width: calc((100% - 6%) / 4);
   margin: 5px 2% 5px 0;
   display: block;
 }
 
-.error-list li:nth-child(4n) {
+.errorList li:nth-child(4n) {
   margin-right: 0;
 }
 
@@ -599,7 +599,7 @@ footer a:hover::before {
     padding-left: 25px;
   }
 
-  .search-box {
+  .searchBox {
     height: 50px;
     border-radius: 50px;
     padding: 10px;
@@ -609,17 +609,17 @@ footer a:hover::before {
     opacity: .3;
   }
 
-  .search-button {
+  .searchButton {
     width: 50px;
     height: 50px;
   }
 
-  .search-button img {
+  .searchButton img {
     right: 27px;
     bottom: 2px;
   }
 
-  .search-text {
+  .searchText {
     padding-left: 20px;
     line-height: 50px;
     width: 200px;
