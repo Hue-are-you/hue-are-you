@@ -106,16 +106,8 @@ class App extends Component {
     })
   };
 
-  // makeupAxiosCall = () =  {
-    
-  // }
-
-  handleClick = (e) => {
-    e.preventDefault();
-    //   go to the swatches, batches
-    if (this.state.brandNames.indexOf(this.state.userBrandInput) >=0) {
-      console.log("Matches");
-    
+  // calls makeupApi, returns array of colour hex codes
+  makeupAxiosCall = () =>  {
     axios({
       url: `https://makeup-api.herokuapp.com/api/v1/products.json`,
       method: `GET`,
@@ -143,13 +135,36 @@ class App extends Component {
           colors: colorsOnly
         })
       })
+  }
+
+  // handles clicks on makeup brand anchor tags, populates 7 colour choices from makeup array call
+  handleBrandClick = (e) => {
+    // e.preventDefault();
+    const brand = e.target.name
+    console.log(brand);
+    this.setState({
+      userBrandInput: brand
+        })
+    this.makeupAxiosCall()
+  }
+
+   // handles clicks on search bar, populates 7 colour choices from makeup array call
+  handleClick = (e) => {
+    e.preventDefault();
+    //   compares user input to array of makeup brand names accepted by the API
+    if (this.state.brandNames.indexOf(this.state.userBrandInput) >=0) {
+      console.log("matches");
+      // Makes Axios call if input matches accepted values
+      this.makeupAxiosCall()
     }else{
-      console.log("No Match");
+      console.log("no match");
+      // show error options if no match
       this.setState({
         anchorClass: ""
       })
     }
   }
+
 
   randomColours = (array) => {
     this.setState({
@@ -185,12 +200,12 @@ class App extends Component {
             </div>
           </div>
           <div>
-            <a className={this.state.anchorClass} href="#brands">This brand is not supported, click here for supported brands</a>
-            <div className="arrow">
+            {/* <div className="arrow">
               <span></span>
               <span></span>
-            </div>
+            </div> */}
           </div>
+            <a className={this.state.anchorClass} href="#brands">This brand is not supported, click here for supported brands</a>
         </header>
 
         {/* Render swatches: */}
