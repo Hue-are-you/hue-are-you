@@ -8,16 +8,18 @@ class Header extends Component {
     return(
       <Fragment>
         <div className="banner">
-          <video src={video} autoPlay={this.props.play} loop="true" playsInline></video>
+          <video autoPlay={this.props.play} loop="true" playsInline>
+            <source src={video} type="video/mp4"/>
+          </video>
           <div className="search">
             <div onClick={this.props.playVideo} className={this.props.fadeOut ? 'hide' : null}>
               <LoadingText />
             </div>
             <h1 className={this.props.mainText ? 'showText' : null}>Hue are you?</h1>
-            <form action="" className={`search-box ${this.props.mainText ? 'showSearch' : null}`}>
-              <label htmlFor="search" className="sr-only">Search a make-up brand</label>
-              <input id="search" className="search-text" type="text" placeholder="Search a make-up brand" onChange={this.props.handleChange} />
-              <button className="search-button" onClick={this.props.handleClick} type="submit"><img src={paint} alt="paint splash icon" /></button>
+            <form action="" className={`searchBox ${this.props.mainText ? 'showSearch' : null}`}>
+              <label htmlFor="search" className="srOnly">Search a make-up brand</label>
+              <input id="search" className="searchText" type="text" placeholder="Search a make-up brand" onChange={this.props.handleChange} />
+              <button className="searchButton" onClick={this.props.handleClick} type="submit"><img src={paint} alt="paint splash icon" /></button>
             </form>
           </div>
         </div>
