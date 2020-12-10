@@ -595,10 +595,17 @@ footer a:hover::before {
 
 /* Start anchor that is hidden  */
 /* Thie following needs to stay below the search bar, where it is visible to the user when an error occurs you may style it as you wish, but please don't hide it under the arrow */
-.start a {
+.start .errorMessage {
+  position: relative;
+  width: 50%;
+  top: -100px;
+}
+
+.message {
   z-index: 20;
-  transform: translateY(-200px);
+  position: absolute;
+  transform: translateY(-150px);
   width: 100%;
   text-align: center;
-  color: #bada55;
+  color: #FFFFFF;
 }

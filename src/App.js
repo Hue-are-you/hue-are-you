@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import video from './assets/smoke.mp4';
 import paint from './assets/paint-splash.png';
 import axios from 'axios';
@@ -21,7 +21,9 @@ class App extends Component {
       finalColours: [],
       rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35A1F", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93" ],
       brandNames: ["almay", "alva", "anna sui", "annabelle", "benefit", "boosh", "burt's bees", "butter london", "c'est moi", "cargo cosmetics", "china glaze", "clinique", "coastal classic creation", "colourpop", "covergirl", "dalish", "deciem", "dior", "dr.hauschka", "e.l.f.", "essie", "fenty", "glossier", "green people", "iman", "l'oreal", "lotus cosmetics usa", "maia's mineral galaxy", "marcelle", "marienatie", "maybelline", "milani", "mineral fusion", "misa", "mistura", "moov", "nudus", "nyx", "orly", "pacifica", "penny lane organics", "physicians formula", "piggy paint", "pure anada", "rejuva minerals", "revlon", "sally b's skin yummies", "salon perfect", "sante", "sinful colours", "smashbox", "stila", "suncoat", "w3llpeople", "wet n wild", "zorah", "zorah biocosmetiques"],
-      anchorClass: "hidden"
+      anchorClass: "hidden",
+      sectionsClass: "hidden",
+      brandsClass: "hidden"
     }
   }
 
@@ -29,7 +31,8 @@ class App extends Component {
     this.setState({
       play: true,
       fadeOut: true,
-      mainText: true
+      mainText: true,
+      brandsClass: ""
     })
   }
 
@@ -143,8 +146,9 @@ class App extends Component {
     const brand = e.target.name
     console.log(brand);
     this.setState({
-      userBrandInput: brand
-        })
+      userBrandInput: brand,
+      sectionsClass: ""
+    })
     this.makeupAxiosCall()
   }
 
@@ -154,6 +158,9 @@ class App extends Component {
     //   compares user input to array of makeup brand names accepted by the API
     if (this.state.brandNames.indexOf(this.state.userBrandInput) >=0) {
       console.log("matches");
+      this.setState({
+        sectionsClass: ""
+      })
       // Makes Axios call if input matches accepted values
       this.makeupAxiosCall()
     }else{
@@ -183,7 +190,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <header id="start" className="start">
           <div className="banner">
             <video src={video} autoPlay={this.state.play} loop="true"></video>
@@ -199,17 +206,20 @@ class App extends Component {
               </form>
             </div>
           </div>
-          <div>
-            <div className="arrow">
-              <a href="#brands"><span></span></a>
-              <a href="#brands"><span></span></a>
-            </div>
+          <div className={`errorMessage ${this.state.anchorClass}`}>
+            <a className="message" href="#brands">This brand is not supported, click here for supported brands</a>
+            <a href="#brands">
+              <div className="arrow">
+                <span></span>
+                <span></span>
+              </div>
+            </a>
+            
           </div>
-            <a className={this.state.anchorClass} href="#brands">This brand is not supported, click here for supported brands</a>
         </header>
 
         {/* Render swatches: */}
-        <section className="swatches" id="swatchSection">
+        <section className={`swatches ${this.state.sectionsClass}`} id="swatchSection">
           <div className="wrapper information">
             <h2>Pick a color that speaks to you!</h2>
             <ul>
@@ -238,8 +248,9 @@ class App extends Component {
           </div>
         </section>
         
-        <section className="art">
+        <section className={`art ${this.state.sectionsClass}`}>
           <div className="wrapper">
+            <h2>You might <em>Rijk</em> this Picture!</h2>
             <div className="artFrame">
               <div className="artCorset">
                 <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`}/>
@@ -250,7 +261,7 @@ class App extends Component {
           </div>
         </section>
 
-        <section id="brands">
+        <section id="brands" className={this.state.brandsClass}>
           <BrandList
             brands={this.state.brandNames} click={this.handleBrandClick} />
         </section>
@@ -258,7 +269,7 @@ class App extends Component {
         <footer>
           <Footer />
         </footer>
-      </div>
+      </Fragment>
     )
   }
 }
