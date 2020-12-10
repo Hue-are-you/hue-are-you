@@ -39,9 +39,6 @@ class App extends Component {
         clearInterval(interval);
       }
     }, 2000);
-
-
-
     this.setState({
       play: true,
       fadeOut: true,
@@ -156,9 +153,11 @@ handleBrandClick = (e) => {
   // e.preventDefault();
   // toLowercase?
   const brand = e.target.name;
+  const formattedBrand = brand.toLowercase();
+  console.log(formattedBrand);
   console.log(brand);
   this.setState({
-    userBrandInput: brand,
+    userBrandInput: formattedBrand,
     swatchesClass: ""
   }, () => { this.makeupAxiosCall() })
 
@@ -208,7 +207,7 @@ render() {
     <Fragment>
       <header id="start" className="start">
         <div className="banner">
-          <video id="vid" src={video} autoPlay={this.state.play} loop="true"></video>
+          <video id="vid" src={video} autoPlay={this.state.play} loop="true" playsInline></video>
           <div className="search">
             <div onClick={this.playVideo} className={this.state.fadeOut ? 'hide' : null}>
               <LoadingText />

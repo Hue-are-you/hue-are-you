@@ -37,6 +37,7 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #05090a;
 }
 
 h1 {
