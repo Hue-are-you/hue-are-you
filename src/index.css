@@ -452,7 +452,33 @@ li {
 
 /* Art Picture Section */
 .art {
-  background-color: white;
+  background-color: #05090a;
+  padding-bottom: 50px;
+}
+
+.artFrame {
+  width: 700px;
+  min-height: 300px;
+  margin: 0 auto;
+  border-image: url(assets/frame.png) 88;
+  border-image-width: 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.artCorset {
+  width: 580px;
+  padding: 57px 0;
+}
+
+.artFrame img {
+  margin: 0 auto;
+  object-fit: cover;
+}
+
+.art p {
+  color: white;
+  text-align: center;
 }
 
 
@@ -570,10 +596,8 @@ footer a:hover::before {
 /* Start anchor that is hidden  */
 /* Thie following needs to stay below the search bar, where it is visible to the user when an error occurs you may style it as you wish, but please don't hide it under the arrow */
 .start a {
-  
   z-index: 20;
-  transform: translateY(-150px);
-
+  transform: translateY(-200px);
   width: 100%;
   text-align: center;
   color: #bada55;

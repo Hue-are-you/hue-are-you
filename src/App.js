@@ -200,10 +200,10 @@ class App extends Component {
             </div>
           </div>
           <div>
-            {/* <div className="arrow">
-              <span></span>
-              <span></span>
-            </div> */}
+            <div className="arrow">
+              <a href="#brands"><span></span></a>
+              <a href="#brands"><span></span></a>
+            </div>
           </div>
             <a className={this.state.anchorClass} href="#brands">This brand is not supported, click here for supported brands</a>
         </header>
@@ -240,7 +240,11 @@ class App extends Component {
         
         <section className="art">
           <div className="wrapper">
-            <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`}/>
+            <div className="artFrame">
+              <div className="artCorset">
+                <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`}/>
+              </div>
+            </div>
             <p>{this.state.artist}</p>
             <p>{this.state.title}</p>
           </div>
