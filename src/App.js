@@ -5,6 +5,7 @@ import axios from 'axios';
 import LoadingText from './LoadingText.js';
 import BrandList from './BrandList.js';
 import Footer from './Footer.js';
+import React from 'react';
 
 class App extends Component {
 
@@ -19,16 +20,28 @@ class App extends Component {
       title: '',
       artist: '',
       finalColours: [],
-      rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35A1F", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93" ],
+      rijksColors: ["#737C84", "#FBF6E1", "#2F4F4F", "#E0CC91", "#000000", "#B5BFCC", "#B35A1F", "#F6ECF3", "#981313", "#F49B7A", "#2F4F4F", "#DDA5AA", "#E09714", "#367614", "#4019B1", "#4279DB", "#DE4153", "#62AD77", "#8268DC", "#850085", "#DF4C93"],
       brandNames: ["almay", "alva", "anna sui", "annabelle", "benefit", "boosh", "burt's bees", "butter london", "c'est moi", "cargo cosmetics", "china glaze", "clinique", "coastal classic creation", "colourpop", "covergirl", "dalish", "deciem", "dior", "dr.hauschka", "e.l.f.", "essie", "fenty", "glossier", "green people", "iman", "l'oreal", "lotus cosmetics usa", "maia's mineral galaxy", "marcelle", "marienatie", "maybelline", "milani", "mineral fusion", "misa", "mistura", "moov", "nudus", "nyx", "orly", "pacifica", "penny lane organics", "physicians formula", "piggy paint", "pure anada", "rejuva minerals", "revlon", "sally b's skin yummies", "salon perfect", "sante", "sinful colours", "smashbox", "stila", "suncoat", "w3llpeople", "wet n wild", "zorah", "zorah biocosmetiques"],
       anchorClass: "hidden",
       swatchesClass: "hidden",
       artClass: "hidden",
       brandsClass: "hidden"
     }
+    this.scrollSwatches = React.createRef();
+    this.scrollArt = React.createRef();
   }
 
   playVideo = () => {
+    const interval = setInterval(function () {
+      const countForVideo = document.getElementById('vid').readyState;
+      if (countForVideo == 4) {
+        document.getElementById('vid').play();
+        clearInterval(interval);
+      }
+    }, 2000);
+
+
+
     this.setState({
       play: true,
       fadeOut: true,
@@ -50,12 +63,13 @@ class App extends Component {
   // what to do when user clicks desired colour
   handleSwatch = (e) => {
     e.preventDefault();
+
     //  go to the art page
     const chosenColor = e.target.className
     console.log(chosenColor);
     const nearestColor = require('nearest-color').from(this.state.rijksColors);
     console.log(nearestColor(chosenColor));
-      axios({
+    axios({
       url: `https://www.rijksmuseum.nl/api/en/collection`,
       method: `GET`,
       responseType: `json`,
@@ -87,186 +101,191 @@ class App extends Component {
           const artPiece = artArray[randomIndex]
           this.setState({
 
-          url: artPiece.arrUrl,
-          title: artPiece.arrTitle,
-          artist: artPiece.arrArtist,
-          artClass: ""
-            })
+            url: artPiece.arrUrl,
+            title: artPiece.arrTitle,
+            artist: artPiece.arrArtist,
+            artClass: ""
+          }, this.scrollArt.current.scrollIntoView({ behavior: 'smooth' })
+          )
 
-        })
       })
-  }
+  })
+}
 
-  // store user brand input in state
-  handleChange = (e) => {
-    this.setState({
-      userBrandInput: e.target.value,
-      anchorClass: "hidden"
-    })
-  };
+// store user brand input in state
+handleChange = (e) => {
+  this.setState({
+    userBrandInput: e.target.value,
+    anchorClass: "hidden"
+  })
+};
 
-  // calls makeupApi, returns array of colour hex codes
-  makeupAxiosCall = () =>  {
-    axios({
-      url: `https://makeup-api.herokuapp.com/api/v1/products.json`,
-      method: `GET`,
-      responseType: `json`,
-      params: {
-        // brand: {this.userBrandInput} (maybe state or props)
-        brand: `${this.state.userBrandInput}`,
+// calls makeupApi, returns array of colour hex codes
+makeupAxiosCall = () => {
+  axios({
+    url: `https://makeup-api.herokuapp.com/api/v1/products.json`,
+    method: `GET`,
+    responseType: `json`,
+    params: {
+      // brand: {this.userBrandInput} (maybe state or props)
+      brand: `${this.state.userBrandInput}`,
+    }
+  })
+    .then((res) => {
+      // console.log(res.data);
+      const colorsOnly = [];
+      for (let i in res.data) {
+        // console.log(res.data[i].product_colors);
+        const products = res.data[i].product_colors;
+        products.forEach((info) => {
+          // console.log(info);
+          colorsOnly.push(info.hex_value);
+          // console.log(colorsOnly);
+        })
       }
-    })
-      .then((res) => {
-        // console.log(res.data);
-        const colorsOnly = [];
-        for (let i in res.data) {
-          // console.log(res.data[i].product_colors);
-          const products = res.data[i].product_colors;
-          products.forEach((info) => {
-            // console.log(info);
-            colorsOnly.push(info.hex_value);
-            // console.log(colorsOnly);
-          })
-        }
-        // console.log(colorsOnly);
-        this.randomColours(colorsOnly)
-        this.setState({
-          colors: colorsOnly
-        })
+      // console.log(colorsOnly);
+      this.randomColours(colorsOnly)
+      this.setState({
+        colors: colorsOnly
       })
-  }
+    })
+}
 
-  // handles clicks on makeup brand anchor tags, populates 7 colour choices from makeup array call
-  handleBrandClick = (e) => {
-    // e.preventDefault();
-    const brand = e.target.name
-    console.log(brand);
+// handles clicks on makeup brand anchor tags, populates 7 colour choices from makeup array call
+handleBrandClick = (e) => {
+  // e.preventDefault();
+  // toLowercase?
+  const brand = e.target.name;
+  console.log(brand);
+  this.setState({
+    userBrandInput: brand,
+    swatchesClass: ""
+  }, () => { this.makeupAxiosCall() })
+
+}
+
+// handles clicks on search bar, populates 7 colour choices from makeup array call
+handleClick = (e) => {
+  e.preventDefault();
+  //   compares user input to array of makeup brand names accepted by the API
+  if (this.state.brandNames.indexOf(this.state.userBrandInput) >= 0) {
+    // console.log("matches");
+    this.scrollSwatches.current.scrollIntoView({ behavior: 'smooth' });
+
+
     this.setState({
-      userBrandInput: brand,
       swatchesClass: ""
-    }, () => { this.makeupAxiosCall() })
-    
-  }
-
-   // handles clicks on search bar, populates 7 colour choices from makeup array call
-  handleClick = (e) => {
-    e.preventDefault();
-    //   compares user input to array of makeup brand names accepted by the API
-    if (this.state.brandNames.indexOf(this.state.userBrandInput) >=0) {
-      // console.log("matches");
-      this.setState({
-        swatchesClass: ""
-      })
-      // Makes Axios call if input matches accepted values
-      this.makeupAxiosCall()
-    }else{
-      // console.log("no match");
-      // show error options if no match
-      this.setState({
-        anchorClass: ""
-      })
-    }
-  }
-
-
-  randomColours = (array) => {
-    this.setState({
-      finalColours: []
     })
-    const indexSize = 7
-    for (let i = 0; i <= (indexSize - 1); i++) {
-      const randomIndex = Math.floor(Math.random() * array.length)
-      if (array[randomIndex] !== array[i]) {
-        this.state.finalColours.push(array[randomIndex]);
-        // console.log("SwatchArray", this.state.finalColours)
-      }
+    // Makes Axios call if input matches accepted values
+    this.makeupAxiosCall()
+  } else {
+    // console.log("no match");
+    // show error options if no match
+    this.setState({
+      anchorClass: ""
+    })
+  }
+}
+
+
+randomColours = (array) => {
+  this.setState({
+    finalColours: []
+  })
+  const indexSize = 7
+  for (let i = 0; i <= (indexSize - 1); i++) {
+    const randomIndex = Math.floor(Math.random() * array.length)
+    if (array[randomIndex] !== array[i]) {
+      this.state.finalColours.push(array[randomIndex]);
+      // console.log("SwatchArray", this.state.finalColours)
     }
-    // sometimes repeats... how to fix?
   }
+  // sometimes repeats... how to fix?
+}
 
-  render() {
-    return (
-      <Fragment>
-        <header id="start" className="start">
-          <div className="banner">
-            <video src={video} autoPlay={this.state.play} loop="true"></video>
-            <div className="search">
-              <div onClick={this.playVideo} className={this.state.fadeOut ? 'hide' : null}>
-                <LoadingText />
-              </div>
-              <h1 className={this.state.mainText ? 'showText' : null}>Hue are you?</h1>
-              <form action="" className={`search-box ${this.state.mainText ? 'showSearch' : null}`}>
-                <label htmlFor="search" className="sr-only">Search a make-up brand</label>
-                <input id="search" className="search-text" type="text" placeholder="Search a make-up brand" onChange={this.handleChange} />
-                <button className="search-button" onClick={this.handleClick} type="submit"><img src={paint} alt="paint splash icon" /></button>
-              </form>
+render() {
+  return (
+    <Fragment>
+      <header id="start" className="start">
+        <div className="banner">
+          <video id="vid" src={video} autoPlay={this.state.play} loop="true"></video>
+          <div className="search">
+            <div onClick={this.playVideo} className={this.state.fadeOut ? 'hide' : null}>
+              <LoadingText />
+            </div>
+            <h1 className={this.state.mainText ? 'showText' : null}>Hue are you?</h1>
+            <form action="" className={`search-box ${this.state.mainText ? 'showSearch' : null}`}>
+              <label htmlFor="search" className="sr-only">Search a make-up brand</label>
+              <input id="search" className="search-text" type="text" placeholder="Search a make-up brand" onChange={this.handleChange} />
+              <button className="search-button" onClick={this.handleClick} type="submit"><img src={paint} alt="paint splash icon" /></button>
+            </form>
+          </div>
+        </div>
+        <div className={`errorMessage ${this.state.anchorClass}`}>
+          <a className="message" href="#brands">This brand is not supported, click here for supported brands</a>
+          <a href="#brands">
+            <div className="arrow">
+              <span></span>
+              <span></span>
+            </div>
+          </a>
+        </div>
+      </header>
+
+      {/* Render swatches: */}
+      <section className={`swatches ${this.state.swatchesClass}`} id="swatchSection" ref={this.scrollSwatches}>
+        <div className="wrapper information">
+          <h2>Pick a color that speaks to you!</h2>
+          <ul>
+            {
+              this.state.finalColours.map((color, index) => {
+                const styles = {
+                  backgroundColor: (color)
+                };
+                // console.log(color);
+                return (
+                  <li className="swatch" key={index}>
+                    <button style={styles} className={color} onClick={this.handleSwatch}>{color}</button>
+                  </li>
+                )
+              })
+            }
+          </ul>
+          <div class="stick">
+            <h3>{this.state.userBrandInput}</h3>
+            <div class="brush"></div>
+            <div class="neck"></div>
+            <div class="bristles">
+              <div class="tip"></div>
             </div>
           </div>
-          <div className={`errorMessage ${this.state.anchorClass}`}>
-            <a className="message" href="#brands">This brand is not supported, click here for supported brands</a>
-            <a href="#brands">
-              <div className="arrow">
-                <span></span>
-                <span></span>
-              </div>
-            </a>
-          </div>
-        </header>
+        </div>
+      </section>
 
-        {/* Render swatches: */}
-        <section className={`swatches ${this.state.swatchesClass}`} id="swatchSection">
-          <div className="wrapper information">
-            <h2>Pick a color that speaks to you!</h2>
-            <ul>
-              {
-                this.state.finalColours.map((color, index) => {
-                  const styles = {
-                    backgroundColor: (color)
-                  };
-                  // console.log(color);
-                  return (
-                    <li className="swatch" key={index}>
-                      <button style={styles} className={color} onClick={this.handleSwatch}>{color}</button>
-                    </li>
-                  )
-                })
-              }
-            </ul>
-            <div class="stick">
-              <h3>{this.state.userBrandInput}</h3>
-              <div class="brush"></div>
-              <div class="neck"></div>
-              <div class="bristles">
-                <div class="tip"></div>
-              </div>
+      <section className={`art ${this.state.artClass}`} ref={this.scrollArt}>
+        <div className="wrapper">
+          <h2>You might <em>Rijk</em> this Picture!</h2>
+          <div className="artFrame">
+            <div className="artCorset">
+              <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`} />
             </div>
           </div>
-        </section>
+          <p><span>Artist: </span>{this.state.artist}</p>
+          <p><span>Title: </span>{this.state.title}</p>
+        </div>
+      </section>
 
-        <section className={`art ${this.state.artClass}`}>
-          <div className="wrapper">
-            <h2>You might <em>Rijk</em> this Picture!</h2>
-            <div className="artFrame">
-              <div className="artCorset">
-                <img src={this.state.url} alt={`Your makeup, perfectly paired with ${this.state.artist}'s work: '${this.state.title}'`}/>
-              </div>
-            </div>
-            <p><span>Artist: </span>{this.state.artist}</p>
-            <p><span>Title: </span>{this.state.title}</p>
-          </div>
-        </section>
+      <section id="brands" className={this.state.brandsClass}>
+        <BrandList
+          brands={this.state.brandNames} click={this.handleBrandClick} />
+      </section>
 
-        <section id="brands" className={this.state.brandsClass}>
-          <BrandList
-            brands={this.state.brandNames} click={this.handleBrandClick} />
-        </section>
-
-        <footer>
-          <Footer />
-        </footer>
-      </Fragment>
-    )
-  }
+      <footer>
+        <Footer />
+      </footer>
+    </Fragment>
+  )
+}
 }
 
 export default App
