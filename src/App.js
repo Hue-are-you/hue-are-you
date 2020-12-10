@@ -143,9 +143,9 @@ class App extends Component {
     console.log(brand);
     this.setState({
       userBrandInput: brand,
-      sectionsClass: ""
-    })
-    this.makeupAxiosCall()
+      swatchesClass: ""
+    }, () => { this.makeupAxiosCall() })
+    
   }
 
    // handles clicks on search bar, populates 7 colour choices from makeup array call
@@ -153,14 +153,14 @@ class App extends Component {
     e.preventDefault();
     //   compares user input to array of makeup brand names accepted by the API
     if (this.state.brandNames.indexOf(this.state.userBrandInput) >=0) {
-      console.log("matches");
+      // console.log("matches");
       this.setState({
         swatchesClass: ""
       })
       // Makes Axios call if input matches accepted values
       this.makeupAxiosCall()
     }else{
-      console.log("no match");
+      // console.log("no match");
       // show error options if no match
       this.setState({
         anchorClass: ""
