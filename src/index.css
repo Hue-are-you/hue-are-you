@@ -727,9 +727,34 @@ footer a:hover::before {
   }
 }
 
+/* Start anchor that is hidden  */
+/* Thie following needs to stay below the search bar, where it is visible to the user when an error occurs you may style it as you wish, but please don't hide it under the arrow */
+.start .errorMessage {
+  position: relative;
+  width: 50%;
+  bottom: 70px;
+}
 
+.message {
+  z-index: 20;
+  position: absolute;
+  width: 100%;
+  bottom: 200px;
+  text-align: center;
+  color: #FFFFFF;
+}
 
 /* Max-height to deal with smartphones turned sideways */
+@media (max-height: 750px) {
+  .arrow {
+    bottom: -50px;
+  }
+
+  .message {
+  bottom: 100px;
+  }
+}
+
 @media (max-height: 500px) {
   h1 {
     top: 15%;
@@ -739,8 +764,23 @@ footer a:hover::before {
   .logo {
     max-width: 30%;
   }
+
+  .message {
+    bottom: 70px;
+    }
 }
 
+@media (max-height: 470px) {
+  .message {
+    bottom: 215px;
+  }
+}
+
+@media (max-height: 400px) {
+  .message {
+    bottom: 180px;
+  }
+}
 
 /* Calvin to self -> don't touch this */
 .hidden {
@@ -751,17 +791,4 @@ footer a:hover::before {
 
 /* Start anchor that is hidden  */
 /* Thie following needs to stay below the search bar, where it is visible to the user when an error occurs you may style it as you wish, but please don't hide it under the arrow */
-.start .errorMessage {
-  position: relative;
-  width: 50%;
-  top: -100px;
-}
 
-.message {
-  z-index: 20;
-  position: absolute;
-  transform: translateY(-150px);
-  width: 100%;
-  text-align: center;
-  color: #FFFFFF;
-}
