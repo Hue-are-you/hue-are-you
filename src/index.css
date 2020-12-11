@@ -38,6 +38,7 @@ header {
   align-items: center;
   flex-direction: column;
   background-color: #05090a;
+  min-height: 500px;
 }
 
 h1 {
@@ -45,7 +46,7 @@ h1 {
   font-size: 9rem;
   font-family: 'Baskerville', serif;
   position: absolute;
-  top: 25%;
+  top: 20%;
   padding-left: 10px;
   margin: 0;
   opacity: 0;
@@ -106,7 +107,6 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* flex-wrap: wrap; */
 }
 
 video {
@@ -505,8 +505,8 @@ li {
 
 .errorList li {
   list-style: none;
-  width: calc((100% - 6%) / 4);
-  margin: 5px 2% 5px 0;
+  width: calc((100% - 30px) / 4);
+  margin: 5px 10px 5px 0;
   display: block;
 }
 
@@ -537,17 +537,17 @@ li {
   position: absolute;
   background-size: cover;
   top: -10px;
-  left: 15%;
+  left: 20%;
   z-index: -1;
   width: 0%;
-  height: 55px;
+  height: 150%;
   transform-origin: left;
   overflow: visible;
   transition: .5s;
 }
 
 .brands a:hover::before {
-  width: 70%;
+  width: 60%;
 }
 
 /* Footer Styling */
@@ -555,6 +555,7 @@ footer {
   background-color: #eb7a83;
   text-align: center;
   font-size: 2rem;
+  line-height: 1.15;
 }
 
 footer div {
@@ -592,40 +593,38 @@ footer a:hover::before {
 }
 
 /* Media Queries */
-@media (max-width: 550px) {
-  /* Shrink h1 text and search bar for smaller viewports */
-  h1 {
-    font-size: 5rem;
-    padding-left: 25px;
+
+@media (max-width: 1400px) {
+
+  .brands a::before {
+    background-image: none;
+    background-color: white;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    width: 0;
+    height: 3px;
   }
 
-  .searchBox {
-    height: 50px;
-    border-radius: 50px;
-    padding: 10px;
-    width: 300px;
-    transition: 1s;
-    z-index: 5;
-    opacity: .3;
+  .brands a:hover::before {
+    width: 30%;
+  }
+}
+
+@media (max-width: 900px) {
+
+  .errorList li {
+    list-style: none;
+    width: calc((100% - 30px) / 3);
+    margin: 5px 10px 5px 0;
+    display: block;
   }
 
-  .searchButton {
-    width: 50px;
-    height: 50px;
+  .errorList li:nth-child(3n) {
+    margin-right: 0;
   }
 
-  .searchButton img {
-    right: 27px;
-    bottom: 2px;
-  }
-
-  .searchText {
-    padding-left: 20px;
-    line-height: 50px;
-    width: 200px;
-    font-size: 1.6rem;
-    z-index: 10;
-  }
 }
 
 @media (max-width: 750px) {
@@ -671,6 +670,63 @@ footer a:hover::before {
 
   .artCorset {
     width: 80%;
+  }
+}
+
+@media (max-width: 700px) {
+
+  .errorList li {
+    width: calc((100% - 20px) / 2);
+  }
+
+  .errorList li:nth-child(2n) {
+    margin-right: 0;
+  }
+
+}
+
+@media (max-width: 550px) {
+  /* Shrink h1 text and search bar for smaller viewports */
+  h1 {
+    font-size: 5rem;
+    padding-left: 25px;
+  }
+
+  .searchBox {
+    height: 50px;
+    border-radius: 50px;
+    padding: 10px;
+    width: 300px;
+    transition: 1s;
+    z-index: 5;
+    opacity: .3;
+  }
+
+  .searchButton {
+    width: 50px;
+    height: 50px;
+  }
+
+  .searchButton img {
+    right: 27px;
+    bottom: 2px;
+  }
+
+  .searchText {
+    padding-left: 20px;
+    line-height: 50px;
+    width: 200px;
+    font-size: 1.6rem;
+    z-index: 10;
+  }
+}
+
+
+
+/* Max-height to deal with smartphones turned sideways */
+@media (max-height: 500px) {
+  h1 {
+    top: 15%;
   }
 }
 

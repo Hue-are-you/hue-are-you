@@ -1,11 +1,11 @@
+import React from 'react';
 import { Component, Fragment } from 'react';
 import axios from 'axios';
+import Header from './Header.js';
+import Swatches from './Swatches.js';
+import Art from './Art.js';
 import BrandList from './BrandList.js';
 import Footer from './Footer.js';
-import React from 'react';
-import Art from './Art.js'
-import Swatches from './Swatches.js'
-import Header from './Header.js';
 
 class App extends Component {
 
