@@ -140,7 +140,9 @@ class App extends Component {
             artClass: ""
           }, this.scrollArt.current.scrollIntoView({ behavior: 'smooth' })
           )
-
+          return(
+            artPiece
+          )
         })
       })
   }

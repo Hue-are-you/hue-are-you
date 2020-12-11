@@ -46,8 +46,10 @@ h1 {
   font-size: 9rem;
   font-family: 'Baskerville', serif;
   position: absolute;
+  text-align: center;
   top: 20%;
-  padding-left: 10px;
+  left: 0;
+  right:0;
   margin: 0;
   opacity: 0;
 }
@@ -719,6 +721,10 @@ footer a:hover::before {
     font-size: 1.6rem;
     z-index: 10;
   }
+
+  .logo {
+    max-width: 90%;
+  }
 }
 
 
@@ -727,6 +733,11 @@ footer a:hover::before {
 @media (max-height: 500px) {
   h1 {
     top: 15%;
+    font-size: 5rem;
+  }
+
+  .logo {
+    max-width: 30%;
   }
 }
 
